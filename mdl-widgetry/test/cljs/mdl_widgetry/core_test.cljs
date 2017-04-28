@@ -4,4 +4,4 @@
   (:require-macros [cemerick.cljs.test :as m :refer (deftest is)]
                    [mdl-widgetry.core :as mdwl])
   (:require [cemerick.cljs.test :as t]
-            [mdl-widgetry.runtime :as mdlw-rt]))
+            [mdl-widgetry.cards :as mdlw-cards]))

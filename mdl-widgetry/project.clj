@@ -19,7 +19,7 @@
                  [reagent "0.6.1"]]
 
   ;; The plugins injection
-  :plugins [[lein-cljsbuild "1.0.0"]]
+  :plugins [[lein-cljsbuild "1.1.6"]]
 
   ;; Hook the cljsbuild subtasks to the lein tasks: lein clean, lein
   ;; compile, lein test and lein jar

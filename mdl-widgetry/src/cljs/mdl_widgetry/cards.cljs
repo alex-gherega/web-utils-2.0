@@ -29,7 +29,7 @@
     text]])
 
 (defn actions [msg card-link & classes]
-  [(appli misc/enrich-class :div.mdl-card__actions classes)
+  [(apply misc/enrich-class :div.mdl-card__actions classes)
    (conj card-link
          msg
          [:i.material-icons "chevron_right"])])
@@ -40,7 +40,7 @@
           dno :desktop} no-cels
          mdl-cel "mdl-cell--"
          ccls-fn #(str mdl-cel %1 %2)]
-     [(enrich-class :div.mdl-cell
+     [(misc/enrich-class :div.mdl-cell
                      (ccls-fn dno "-col")
                      (ccls-fn tno "-col-tablet")
                      (ccls-fn pno "-col-phone")
@@ -48,12 +48,12 @@
                      :mdl-shadow--3dp)]))
 
 (defn coerce [k v]
-  (let [apply-fn (apply % v)])
-  (condp = k
-    :title (apply-fn title)
-    :text (apply-fn supp-text)
-    :media (apply-fn media)
-    :actions (apply-fn actions)))
+  (let [apply-fn (apply % v)]
+    (condp = k
+      :title (apply-fn title)
+      :text (apply-fn supp-text)
+      :media (apply-fn media)
+      :actions (apply-fn actions))))
 
 (defn card [inputm no-cels & orderv]
   (let [orderv (or orderv (keys inputm))]

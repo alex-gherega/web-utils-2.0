@@ -48,7 +48,7 @@
                      :mdl-shadow--3dp)]))
 
 (defn coerce [k v]
-  (let [apply-fn (apply % v)]
+  (let [apply-fn #(apply % v)]
     (condp = k
       :title (apply-fn title)
       :text (apply-fn supp-text)

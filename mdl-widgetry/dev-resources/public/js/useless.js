@@ -1,10 +1,11 @@
 goog.addDependency("base.js", ['goog'], []);
-goog.addDependency("../material.inc.js", ['cljsjs.material'], []);
 goog.addDependency("../cljs/core.js", ['cljs.core'], ['goog.string', 'goog.object', 'goog.math.Integer', 'goog.string.StringBuffer', 'goog.array', 'goog.math.Long']);
+goog.addDependency("../clojure/string.js", ['clojure.string'], ['goog.string', 'cljs.core', 'goog.string.StringBuffer']);
+goog.addDependency("../hiccups/runtime.js", ['hiccups.runtime'], ['cljs.core', 'clojure.string']);
+goog.addDependency("../material.inc.js", ['cljsjs.material'], []);
 goog.addDependency("../reagent/interop.js", ['reagent.interop'], ['cljs.core']);
 goog.addDependency("../react.inc.js", ['cljsjs.react'], []);
 goog.addDependency("../reagent/debug.js", ['reagent.debug'], ['cljs.core']);
-goog.addDependency("../clojure/string.js", ['clojure.string'], ['goog.string', 'cljs.core', 'goog.string.StringBuffer']);
 goog.addDependency("../reagent/impl/util.js", ['reagent.impl.util'], ['reagent.interop', 'cljs.core', 'cljsjs.react', 'reagent.debug', 'clojure.string']);
 goog.addDependency("../reagent/impl/batching.js", ['reagent.impl.batching'], ['reagent.impl.util', 'reagent.interop', 'cljs.core', 'reagent.debug', 'clojure.string']);
 goog.addDependency("../clojure/set.js", ['clojure.set'], ['cljs.core']);
@@ -15,4 +16,5 @@ goog.addDependency("../reagent/impl/template.js", ['reagent.impl.template'], ['r
 goog.addDependency("../react-dom.inc.js", ['cljsjs.react.dom'], ['cljsjs.react']);
 goog.addDependency("../reagent/dom.js", ['reagent.dom'], ['reagent.impl.util', 'reagent.interop', 'reagent.ratom', 'cljs.core', 'reagent.impl.template', 'reagent.impl.batching', 'cljsjs.react.dom', 'reagent.debug']);
 goog.addDependency("../reagent/core.js", ['reagent.core'], ['reagent.impl.util', 'reagent.interop', 'reagent.ratom', 'cljs.core', 'reagent.impl.template', 'reagent.impl.batching', 'reagent.impl.component', 'reagent.debug', 'reagent.dom']);
-goog.addDependency("../mdl_widgetry/cards.js", ['mdl_widgetry.cards'], ['cljsjs.material', 'reagent.core', 'cljs.core', 'clojure.string']);
+goog.addDependency("../miscelaneous/core.js", ['miscelaneous.core'], ['hiccups.runtime', 'cljsjs.material', 'reagent.core', 'cljs.core']);
+goog.addDependency("../mdl_widgetry/cards.js", ['mdl_widgetry.cards'], ['miscelaneous.core', 'cljsjs.material', 'reagent.core', 'cljs.core', 'clojure.string']);

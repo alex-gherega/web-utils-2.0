@@ -89,43 +89,43 @@
 
 ;; picture  cards:
 
-(defn picture-card
-  ([img [pno tno dno]]
-   (picture-card img img ""))
-  ([img id [pno tno dno]]
-   (picture-card img id ""))
-  ([img id link [pno tno dno]]
-   (picture-card img id link ""))
-  ([img id link text [pno tno dno]]
-   (picture-card img id link text "" [pno tno dno]))
-  ([img id link text msg [pno tno dno]]
-    (picture-card img id link text msg "Details" [pno tno dno]))
-  ([img id link text msg action [pno tno dno]]
-   (c/cell-of-cards text msg [img id] [action link] (mutils/cells-cols pno tno dno))))
+;; (defn picture-card
+;;   ([img [pno tno dno]]
+;;    (picture-card img img ""))
+;;   ([img id [pno tno dno]]
+;;    (picture-card img id ""))
+;;   ([img id link [pno tno dno]]
+;;    (picture-card img id link ""))
+;;   ([img id link text [pno tno dno]]
+;;    (picture-card img id link text "" [pno tno dno]))
+;;   ([img id link text msg [pno tno dno]]
+;;     (picture-card img id link text msg "Details" [pno tno dno]))
+;;   ([img id link text msg action [pno tno dno]]
+;;    (c/cell-of-cards text msg [img id] [action link] (mutils/cells-cols pno tno dno))))
 
 
-;; TODO: refactor this;; baaad baaad code
-(defn picture-card!!
-  ([img [pno tno dno]]
-   (picture-card!! img img [pno tno dno]))
+;; ;; TODO: refactor this;; baaad baaad code
+;; (defn picture-card!!
+;;   ([img [pno tno dno]]
+;;    (picture-card!! img img [pno tno dno]))
+
+;;   ([img id [pno tno dno]]
+;;    (picture-card!! img id "" [pno tno dno]))
   
-  ([img id [pno tno dno]]
-   (picture-card!! img id "" [pno tno dno]))
+;;   ([img id link [pno tno dno]]
+;;    (picture-card!! img id link "" [pno tno dno]))
   
-  ([img id link [pno tno dno]]
-   (picture-card!! img id link "" [pno tno dno]))
+;;   ([img id link text [pno tno dno]]
+;;    (picture-card!! img id link text "" [pno tno dno]))
   
-  ([img id link text [pno tno dno]]
-   (picture-card!! img id link text "" [pno tno dno]))
+;;   ([img id link text subtext [pno tno dno]]
+;;    (picture-card!! img id link text subtext "" [pno tno dno]))
   
-  ([img id link text subtext [pno tno dno]]
-   (picture-card!! img id link text subtext "" [pno tno dno]))
+;;   ([img id link text subtext msg [pno tno dno]]
+;;    (picture-card!! img id link text subtext msg "Details" [pno tno dno]))
   
-  ([img id link text subtext msg [pno tno dno]]
-   (picture-card!! img id link text subtext msg "Details" [pno tno dno]))
-  
-  ([img id link text subtext msg action [pno tno dno]]
-   (c/cell-of-cards!! text subtext msg [img id] [action link] (mutils/cells-cols pno tno dno))))
+;;   ([img id link text subtext msg action [pno tno dno]]
+;;    (c/cell-of-cards!! text subtext msg [img id] [action link] (mutils/cells-cols pno tno dno))))
 
 ;; text cards
 (defn text-card

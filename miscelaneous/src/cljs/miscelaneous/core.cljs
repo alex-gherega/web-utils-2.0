@@ -53,12 +53,17 @@
   (set! (.. (get-js-el id) -style -visibility) "visible"))
 
 ;; TODO: use this everywhere;
-;; TODO: use imrpoved version from ping
 ;; TODO: write one that can slo add style elements
 (defn extend-class [div class & classes]
   (let [class (name class)
         classes (map #(->> % name (str ".")) classes)]
     (keyword (apply str (name div) "." class classes))))
+
+;; TODO: use imrpoved version from ping: DONE
+(defn enrich-class [elem & classes]
+  (keyword (reduce #(str %1
+                         "." (name %2))
+                   (name elem) classes)))
 
 (defn switch [v1 v2 id]
   (let []))

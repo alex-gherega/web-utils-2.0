@@ -16,7 +16,8 @@
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [org.clojure/clojurescript "1.9.293"]
                  [cljsjs/material "1.3.0-0"]
-                 [reagent "0.6.1"]]
+                 [reagent "0.6.1"]
+                 [web-utils-2.0/miscelaneous "0.0.2-alpha"]]
 
   ;; The plugins injection
   :plugins [[lein-cljsbuild "1.1.6"]]

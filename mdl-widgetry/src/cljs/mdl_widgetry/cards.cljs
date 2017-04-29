@@ -2,33 +2,35 @@
   (:require [clojure.string :as cstring]
             [cljsjs.material]
             [reagent.core :as r]
-            [miscelaneous.core :as misc]))
+            [miscelaneous.core :as misc]
+            [clojure.browser.repl :as repl]))
 
+(defn basic-link-attrs [fn] {:onClick fn})
 
-(defn link [link & classes]
+;; TODO: link & media & actions have the perfect struct for a macro
+(defn ^:dynamic link [{:keys [link attrs]} & classes]  
   [(apply misc/enrich-class
           :a.mdl-button.mdl-js-button.mdl-typography--text-upper-case
           classes)
-    {:href link
-     :target "_blank"}])
+   (into {:href link :target "_blank"} attrs)])
 
-(defn media [content & classes]
+(defn ^:dynamic media [content & classes]
   [(apply misc/enrich-class
           :div.mdl-card__media
           classes)
    content])
 
-(defn title [title & subtitle]
+(defn ^:dynamic title [title & subtitle]
   [:div.mdl-card__title {:style {:display "block"}}
    [:h4.mdl-card__title-text title]
    (if subtitle [:p (first subtitle)])])
 
-(defn supp-text [text]
+(defn ^:dynamic supp-text [text]
   [:div.mdl-card__supporting-text
    [:span.mdl-typography--font-light.mdl-typography--subhead
     text]])
 
-(defn actions [msg card-link & classes]
+(defn ^:dynamic actions [msg card-link & classes]
   [(apply misc/enrich-class :div.mdl-card__actions classes)
    (conj card-link
          msg
@@ -48,7 +50,7 @@
                      :mdl-shadow--3dp)]))
 
 (defn coerce [k v]
-  (let [apply-fn #(apply % v)]
+  (let [apply-fn #(if (coll? v) (apply % v) (% v))] ;; TODO: move this to miscelaneous
     (condp = k
       :title (apply-fn title)
       :text (apply-fn supp-text)
@@ -70,7 +72,7 @@
   (let [input (vec kvs)
         inputm (apply assoc {} input)
         orderv (keep-indexed (fn [index item]
-                               (if (odd? index) item nil))
+                               (if (even? index) item nil))
                              input)]
     (apply card inputm no-cels orderv)))
 
@@ -97,50 +99,34 @@
 
 ;; picture  cards:
 
-;; (defn picture-card
-;;   ([img [pno tno dno]]
-;;    (picture-card img img ""))
-;;   ([img id [pno tno dno]]
-;;    (picture-card img id ""))
-;;   ([img id link [pno tno dno]]
-;;    (picture-card img id link ""))
-;;   ([img id link text [pno tno dno]]
-;;    (picture-card img id link text "" [pno tno dno]))
-;;   ([img id link text msg [pno tno dno]]
-;;     (picture-card img id link text msg "Details" [pno tno dno]))
-;;   ([img id link text msg action [pno tno dno]]
-;;    (c/cell-of-cards text msg [img id] [action link] (mutils/cells-cols pno tno dno))))
 
+(defn picture-full [media
+                    [title subtitle] text
+                    [action-name link]
+                    [pno tno dno]]
+  "VIN: (Very Important Note): media needs to be a collection of whatever markup you want inside the div; e.g. [[:img ...]] or [[your-markup] :your-class1 :your-class2...]"
+  (card! (misc/cells-cols pno tno dno)
+         :media media 
+         :title [title subtitle]
+         :text text
+         :actions [action-name link]))
 
-;; ;; TODO: refactor this;; baaad baaad code
-;; (defn picture-card!!
-;;   ([img [pno tno dno]]
-;;    (picture-card!! img img [pno tno dno]))
+(defn picture-only [img [pno tno dno] & classes]
+  (picture-full [img img]
+                ["" ""] 
+                ""
+                ["Details" (apply link {:link "" :attrs {}} classes)]
+                [pno tno dno]))
 
-;;   ([img id [pno tno dno]]
-;;    (picture-card!! img id "" [pno tno dno]))
-  
-;;   ([img id link [pno tno dno]]
-;;    (picture-card!! img id link "" [pno tno dno]))
-  
-;;   ([img id link text [pno tno dno]]
-;;    (picture-card!! img id link text "" [pno tno dno]))
-  
-;;   ([img id link text subtext [pno tno dno]]
-;;    (picture-card!! img id link text subtext "" [pno tno dno]))
-  
-;;   ([img id link text subtext msg [pno tno dno]]
-;;    (picture-card!! img id link text subtext msg "Details" [pno tno dno]))
-  
-;;   ([img id link text subtext msg action [pno tno dno]]
-;;    (c/cell-of-cards!! text subtext msg [img id] [action link] (mutils/cells-cols pno tno dno))))
 
 ;; text cards
+
 (defn text-card
   ([title text [pno tno dno]]
-   (card! :title title :text text (misc/cells-cols pno tno dno)))
+   (card! (misc/cells-cols pno tno dno) :title title :text text))
   ([title text [msg link] [pno tno dno]]
-   ;; here link is obtained by the cards/link function
-   (card! :title title :text text
-          :actions [msg link] (misc/cells-cols pno tno dno))))
+   ;; here link is obtained by the mdl-widgetry.cards/link function
+   (card! (misc/cells-cols pno tno dno)
+          :title title :text text
+          :actions [msg link])))
 

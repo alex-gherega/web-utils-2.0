@@ -20,17 +20,17 @@
        ;; To instrument the project with the browser-repl facilities
        ;; (i.e. the ring/compojure/enlive libs) and the austin plugin
        ;; (cf. see below)
-       :dependencies [[ring "1.2.1"]
-                      [compojure "1.1.6"]
-                      [enlive "1.1.4"]]
+       :dependencies [[ring "1.6.0-RC3"]
+                      [compojure "1.5.2"]
+                      [enlive "1.1.6"]]
 
        ;; lib for cljs unit testing which is a maximal port of
        ;; +
        ;; clojure.test standard lib; 
        ;; +
        ;; the lib for instrumenting the brepl
-       :plugins [[com.cemerick/clojurescript.test "0.2.1"]
-                 [com.cemerick/austin "0.1.3"]]
+       :plugins [[com.cemerick/clojurescript.test "0.3.3"]
+                 [com.cemerick/austin "0.1.6"]]
 
        ;; Cljsbuild settings for development and test phases
        :cljsbuild

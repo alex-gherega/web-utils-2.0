@@ -29,7 +29,7 @@
     text]])
 
 (defn actions [msg card-link & classes]
-  [:div.mdl-card__actions
+  [(appli misc/enrich-class :div.mdl-card__actions classes)
    (conj card-link
          msg
          [:i.material-icons "chevron_right"])])
@@ -77,3 +77,62 @@
 ;; TODO: change local make-grid for html/make-grid
 (defn cards [classes card & cards]
   (apply make-grid classes card cards)) ;; where card is obtained from card or card!
+
+
+;;.................................... SPECIFIC CARDS
+;;
+;;  Once can use these examples to workout
+;;  how to use the cards API
+;;
+;; .................................................
+
+
+;; picture  cards:
+
+(defn picture-card
+  ([img [pno tno dno]]
+   (picture-card img img ""))
+  ([img id [pno tno dno]]
+   (picture-card img id ""))
+  ([img id link [pno tno dno]]
+   (picture-card img id link ""))
+  ([img id link text [pno tno dno]]
+   (picture-card img id link text "" [pno tno dno]))
+  ([img id link text msg [pno tno dno]]
+    (picture-card img id link text msg "Details" [pno tno dno]))
+  ([img id link text msg action [pno tno dno]]
+   (c/cell-of-cards text msg [img id] [action link] (mutils/cells-cols pno tno dno))))
+
+
+;; TODO: refactor this;; baaad baaad code
+(defn picture-card!!
+  ([img [pno tno dno]]
+   (picture-card!! img img [pno tno dno]))
+  
+  ([img id [pno tno dno]]
+   (picture-card!! img id "" [pno tno dno]))
+  
+  ([img id link [pno tno dno]]
+   (picture-card!! img id link "" [pno tno dno]))
+  
+  ([img id link text [pno tno dno]]
+   (picture-card!! img id link text "" [pno tno dno]))
+  
+  ([img id link text subtext [pno tno dno]]
+   (picture-card!! img id link text subtext "" [pno tno dno]))
+  
+  ([img id link text subtext msg [pno tno dno]]
+   (picture-card!! img id link text subtext msg "Details" [pno tno dno]))
+  
+  ([img id link text subtext msg action [pno tno dno]]
+   (c/cell-of-cards!! text subtext msg [img id] [action link] (mutils/cells-cols pno tno dno))))
+
+;; text cards
+(defn text-card
+  ([title text [pno tno dno]]
+   (card! :title title :text text (misc/cells-cols pno tno dno)))
+  ([title text [msg link] [pno tno dno]]
+   ;; here link is obtained by the cards/link function
+   (card! :title title :text text
+          :actions [msg link] (misc/cells-cols pno tno dno))))
+

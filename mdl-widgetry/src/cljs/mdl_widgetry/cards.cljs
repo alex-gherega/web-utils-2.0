@@ -20,6 +20,7 @@
           classes)
    content])
 
+;; TODO: add classes to title as well; could use keyword args for title subtitle and variadic for classes and use this schema everywhere on these fns
 (defn ^:dynamic title [title & subtitle]
   [:div.mdl-card__title {:style {:display "block"}}
    [:h4.mdl-card__title-text title]

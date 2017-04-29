@@ -74,6 +74,14 @@
                              input)]
     (apply card inputm no-cels orderv)))
 
+
+(defn make-grid [classes content & contents]
+
+  ;; TODO: refactor this to use enrich-classes from web-utils-2.0/miscelaneous
+  (let [div-cls (keyword (str "div." (name classes) ".mdl-grid"))]
+    (reduce conj [div-cls content] contents)))
+
+
 ;; TODO: change local make-grid for html/make-grid
 (defn cards [classes card & cards]
   (apply make-grid classes card cards)) ;; where card is obtained from card or card!

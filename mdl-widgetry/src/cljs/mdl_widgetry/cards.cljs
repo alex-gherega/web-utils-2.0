@@ -12,7 +12,7 @@
   [(apply misc/enrich-class
           :a.mdl-button.mdl-js-button.mdl-typography--text-upper-case
           classes)
-   (into {:href link :target "_blank"} attrs)])
+   (into {:href link} attrs)])
 
 (defn ^:dynamic media [content & classes]
   [(apply misc/enrich-class

@@ -82382,8 +82382,7 @@ mdl_widgetry.cards.link.cljs$core$IFn$_invoke$arity$variadic = function(p__12258
   var map__12259__$1 = (!(map__12259 == null) ? map__12259.cljs$lang$protocol_mask$partition0$ & 64 || cljs.core.PROTOCOL_SENTINEL === map__12259.cljs$core$ISeq$ ? true : false : false) ? cljs.core.apply.call(null, cljs.core.hash_map, map__12259) : map__12259;
   var link = cljs.core.get.call(null, map__12259__$1, new cljs.core.Keyword(null, "link", "link", -1769163468));
   var attrs = cljs.core.get.call(null, map__12259__$1, new cljs.core.Keyword(null, "attrs", "attrs", -2090668713));
-  return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.apply.call(null, miscelaneous.core.enrich_class, new cljs.core.Keyword(null, "a.mdl-button.mdl-js-button.mdl-typography--text-upper-case", "a.mdl-button.mdl-js-button.mdl-typography--text-upper-case", 1311932338), classes), cljs.core.into.call(null, new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null, "href", "href", -793805698), link, new cljs.core.Keyword(null, "target", "target", 
-  253001721), "_blank"], null), attrs)], null);
+  return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.apply.call(null, miscelaneous.core.enrich_class, new cljs.core.Keyword(null, "a.mdl-button.mdl-js-button.mdl-typography--text-upper-case", "a.mdl-button.mdl-js-button.mdl-typography--text-upper-case", 1311932338), classes), cljs.core.into.call(null, new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null, "href", "href", -793805698), link], null), attrs)], null);
 };
 mdl_widgetry.cards.link.cljs$lang$maxFixedArity = 1;
 mdl_widgetry.cards.link.cljs$lang$applyTo = function(seq12256) {
@@ -82671,15 +82670,29 @@ mdl_widgetry.cards.picture_full = function mdl_widgetry$cards$picture_full(media
   return mdl_widgetry.cards.card_BANG_.call(null, miscelaneous.core.cells_cols.call(null, pno, tno, dno), new cljs.core.Keyword(null, "media", "media", -1066138403), media, new cljs.core.Keyword(null, "title", "title", 636505583), new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [title, subtitle], null), new cljs.core.Keyword(null, "text", "text", -1790561697), text, new cljs.core.Keyword(null, "actions", "actions", -812656882), new cljs.core.PersistentVector(null, 
   2, 5, cljs.core.PersistentVector.EMPTY_NODE, [action_name, link], null));
 };
+mdl_widgetry.cards.sandwich_picture_full = function mdl_widgetry$cards$sandwich_picture_full(p__12337, media, text, p__12338, p__12339) {
+  var vec__12349 = p__12337;
+  var title = cljs.core.nth.call(null, vec__12349, 0, null);
+  var subtitle = cljs.core.nth.call(null, vec__12349, 1, null);
+  var vec__12352 = p__12338;
+  var action_name = cljs.core.nth.call(null, vec__12352, 0, null);
+  var link = cljs.core.nth.call(null, vec__12352, 1, null);
+  var vec__12355 = p__12339;
+  var pno = cljs.core.nth.call(null, vec__12355, 0, null);
+  var tno = cljs.core.nth.call(null, vec__12355, 1, null);
+  var dno = cljs.core.nth.call(null, vec__12355, 2, null);
+  return mdl_widgetry.cards.card_BANG_.call(null, miscelaneous.core.cells_cols.call(null, pno, tno, dno), new cljs.core.Keyword(null, "title", "title", 636505583), new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [title, subtitle], null), new cljs.core.Keyword(null, "media", "media", -1066138403), media, new cljs.core.Keyword(null, "text", "text", -1790561697), text, new cljs.core.Keyword(null, "actions", "actions", -812656882), new cljs.core.PersistentVector(null, 
+  2, 5, cljs.core.PersistentVector.EMPTY_NODE, [action_name, link], null));
+};
 mdl_widgetry.cards.picture_only = function mdl_widgetry$cards$picture_only(var_args) {
   var args__8686__auto__ = [];
-  var len__8679__auto___12344 = arguments.length;
-  var i__8680__auto___12345 = 0;
+  var len__8679__auto___12365 = arguments.length;
+  var i__8680__auto___12366 = 0;
   while (true) {
-    if (i__8680__auto___12345 < len__8679__auto___12344) {
-      args__8686__auto__.push(arguments[i__8680__auto___12345]);
-      var G__12346 = i__8680__auto___12345 + 1;
-      i__8680__auto___12345 = G__12346;
+    if (i__8680__auto___12366 < len__8679__auto___12365) {
+      args__8686__auto__.push(arguments[i__8680__auto___12366]);
+      var G__12367 = i__8680__auto___12366 + 1;
+      i__8680__auto___12366 = G__12367;
       continue;
     } else {
     }
@@ -82688,38 +82701,38 @@ mdl_widgetry.cards.picture_only = function mdl_widgetry$cards$picture_only(var_a
   var argseq__8687__auto__ = 2 < args__8686__auto__.length ? new cljs.core.IndexedSeq(args__8686__auto__.slice(2), 0, null) : null;
   return mdl_widgetry.cards.picture_only.cljs$core$IFn$_invoke$arity$variadic(arguments[0], arguments[1], argseq__8687__auto__);
 };
-mdl_widgetry.cards.picture_only.cljs$core$IFn$_invoke$arity$variadic = function(img, p__12340, classes) {
-  var vec__12341 = p__12340;
-  var pno = cljs.core.nth.call(null, vec__12341, 0, null);
-  var tno = cljs.core.nth.call(null, vec__12341, 1, null);
-  var dno = cljs.core.nth.call(null, vec__12341, 2, null);
+mdl_widgetry.cards.picture_only.cljs$core$IFn$_invoke$arity$variadic = function(img, p__12361, classes) {
+  var vec__12362 = p__12361;
+  var pno = cljs.core.nth.call(null, vec__12362, 0, null);
+  var tno = cljs.core.nth.call(null, vec__12362, 1, null);
+  var dno = cljs.core.nth.call(null, vec__12362, 2, null);
   return mdl_widgetry.cards.picture_full.call(null, new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [img, img], null), new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, ["", ""], null), "", new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, ["Details", cljs.core.apply.call(null, mdl_widgetry.cards.link, new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null, "link", "link", -1769163468), 
   "", new cljs.core.Keyword(null, "attrs", "attrs", -2090668713), cljs.core.PersistentArrayMap.EMPTY], null), classes)], null), new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [pno, tno, dno], null));
 };
 mdl_widgetry.cards.picture_only.cljs$lang$maxFixedArity = 2;
-mdl_widgetry.cards.picture_only.cljs$lang$applyTo = function(seq12337) {
-  var G__12338 = cljs.core.first.call(null, seq12337);
-  var seq12337__$1 = cljs.core.next.call(null, seq12337);
-  var G__12339 = cljs.core.first.call(null, seq12337__$1);
-  var seq12337__$2 = cljs.core.next.call(null, seq12337__$1);
-  return mdl_widgetry.cards.picture_only.cljs$core$IFn$_invoke$arity$variadic(G__12338, G__12339, seq12337__$2);
+mdl_widgetry.cards.picture_only.cljs$lang$applyTo = function(seq12358) {
+  var G__12359 = cljs.core.first.call(null, seq12358);
+  var seq12358__$1 = cljs.core.next.call(null, seq12358);
+  var G__12360 = cljs.core.first.call(null, seq12358__$1);
+  var seq12358__$2 = cljs.core.next.call(null, seq12358__$1);
+  return mdl_widgetry.cards.picture_only.cljs$core$IFn$_invoke$arity$variadic(G__12359, G__12360, seq12358__$2);
 };
 mdl_widgetry.cards.text_card = function mdl_widgetry$cards$text_card(var_args) {
-  var args12347 = [];
-  var len__8679__auto___12362 = arguments.length;
-  var i__8680__auto___12363 = 0;
+  var args12368 = [];
+  var len__8679__auto___12383 = arguments.length;
+  var i__8680__auto___12384 = 0;
   while (true) {
-    if (i__8680__auto___12363 < len__8679__auto___12362) {
-      args12347.push(arguments[i__8680__auto___12363]);
-      var G__12364 = i__8680__auto___12363 + 1;
-      i__8680__auto___12363 = G__12364;
+    if (i__8680__auto___12384 < len__8679__auto___12383) {
+      args12368.push(arguments[i__8680__auto___12384]);
+      var G__12385 = i__8680__auto___12384 + 1;
+      i__8680__auto___12384 = G__12385;
       continue;
     } else {
     }
     break;
   }
-  var G__12349 = args12347.length;
-  switch(G__12349) {
+  var G__12370 = args12368.length;
+  switch(G__12370) {
     case 3:
       return mdl_widgetry.cards.text_card.cljs$core$IFn$_invoke$arity$3(arguments[0], arguments[1], arguments[2]);
       break;
@@ -82727,24 +82740,24 @@ mdl_widgetry.cards.text_card = function mdl_widgetry$cards$text_card(var_args) {
       return mdl_widgetry.cards.text_card.cljs$core$IFn$_invoke$arity$4(arguments[0], arguments[1], arguments[2], arguments[3]);
       break;
     default:
-      throw new Error([cljs.core.str("Invalid arity: "), cljs.core.str(args12347.length)].join(""));;
+      throw new Error([cljs.core.str("Invalid arity: "), cljs.core.str(args12368.length)].join(""));;
   }
 };
-mdl_widgetry.cards.text_card.cljs$core$IFn$_invoke$arity$3 = function(title, text, p__12350) {
-  var vec__12351 = p__12350;
-  var pno = cljs.core.nth.call(null, vec__12351, 0, null);
-  var tno = cljs.core.nth.call(null, vec__12351, 1, null);
-  var dno = cljs.core.nth.call(null, vec__12351, 2, null);
+mdl_widgetry.cards.text_card.cljs$core$IFn$_invoke$arity$3 = function(title, text, p__12371) {
+  var vec__12372 = p__12371;
+  var pno = cljs.core.nth.call(null, vec__12372, 0, null);
+  var tno = cljs.core.nth.call(null, vec__12372, 1, null);
+  var dno = cljs.core.nth.call(null, vec__12372, 2, null);
   return mdl_widgetry.cards.card_BANG_.call(null, miscelaneous.core.cells_cols.call(null, pno, tno, dno), new cljs.core.Keyword(null, "title", "title", 636505583), title, new cljs.core.Keyword(null, "text", "text", -1790561697), text);
 };
-mdl_widgetry.cards.text_card.cljs$core$IFn$_invoke$arity$4 = function(title, text, p__12354, p__12355) {
-  var vec__12356 = p__12354;
-  var msg = cljs.core.nth.call(null, vec__12356, 0, null);
-  var link = cljs.core.nth.call(null, vec__12356, 1, null);
-  var vec__12359 = p__12355;
-  var pno = cljs.core.nth.call(null, vec__12359, 0, null);
-  var tno = cljs.core.nth.call(null, vec__12359, 1, null);
-  var dno = cljs.core.nth.call(null, vec__12359, 2, null);
+mdl_widgetry.cards.text_card.cljs$core$IFn$_invoke$arity$4 = function(title, text, p__12375, p__12376) {
+  var vec__12377 = p__12375;
+  var msg = cljs.core.nth.call(null, vec__12377, 0, null);
+  var link = cljs.core.nth.call(null, vec__12377, 1, null);
+  var vec__12380 = p__12376;
+  var pno = cljs.core.nth.call(null, vec__12380, 0, null);
+  var tno = cljs.core.nth.call(null, vec__12380, 1, null);
+  var dno = cljs.core.nth.call(null, vec__12380, 2, null);
   return mdl_widgetry.cards.card_BANG_.call(null, miscelaneous.core.cells_cols.call(null, pno, tno, dno), new cljs.core.Keyword(null, "title", "title", 636505583), title, new cljs.core.Keyword(null, "text", "text", -1790561697), text, new cljs.core.Keyword(null, "actions", "actions", -812656882), new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [msg, link], null));
 };
 mdl_widgetry.cards.text_card.cljs$lang$maxFixedArity = 4;

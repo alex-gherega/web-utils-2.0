@@ -21,10 +21,12 @@
    content])
 
 ;; TODO: add classes to title as well; could use keyword args for title subtitle and variadic for classes and use this schema everywhere on these fns
-(defn ^:dynamic title [title & subtitle]
-  [:div.mdl-card__title {:style {:display "block"}}
+(defn ^:dynamic title [{:keys [title subtitle] :or {title ""}} & classes]
+  [(apply misc/enrich-class
+          :div.mdl-card__title
+          classes) {:style {:display "block"}}
    [:h4.mdl-card__title-text title]
-   (if subtitle [:p (first subtitle)])])
+   (if subtitle [:p subtitle])])
 
 (defn ^:dynamic supp-text [text]
   [:div.mdl-card__supporting-text
@@ -108,9 +110,45 @@
   "VIN: (Very Important Note): media needs to be a collection of whatever markup you want inside the div; e.g. [[:img ...]] or [[your-markup] :your-class1 :your-class2...]"
   (card! (misc/cells-cols pno tno dno)
          :media media 
-         :title [title subtitle]
+         :title [{:title title :subtitle subtitle}]
          :text text
          :actions [action-name link]))
+
+(defn sandwich-picture-full [title-ds
+                             media
+                             text
+                             [action-name link]
+                             [pno tno dno]]
+  (card! (misc/cells-cols pno tno dno)
+         :title title-ds ;; this should be a vector containing a map (could be the empty map or nil) and optionally several keywords specifying css classes
+         :media media 
+         :text text
+         :actions [action-name link]))
+
+(defn sandwich-picture-only [title-ds
+                            media
+                            [action-name link]
+                             [pno tno dno]]
+    (card! (misc/cells-cols pno tno dno)
+         :title title-ds ;; this should be a vector containing a map (could be the empty map or nil) and optionally several keywords specifying css classes
+         :media media 
+         :actions [action-name link]))
+
+(defn sandwich-picture-cls [[title subtitle classes]
+                            media
+                            text
+                            [action-name link]
+                            [pno tno dno]]
+  (sandwich-picture-full [{:title title :subtitle subtitle} classes]
+                         media text [action-name link] [pno tno dno]))
+
+(defn sandwich-picture-only-cls [[title subtitle classes]
+                                 media
+                                 [action-name link]
+                                 [pno tno dno]]
+  (sandwich-picture-only [{:title title :subtitle subtitle} classes]
+                         media [action-name link] [pno tno dno]))
+
 
 (defn picture-only [img [pno tno dno] & classes]
   (picture-full [img img]
@@ -124,10 +162,10 @@
 
 (defn text-card
   ([title text [pno tno dno]]
-   (card! (misc/cells-cols pno tno dno) :title title :text text))
+   (card! (misc/cells-cols pno tno dno) :title [{:title title}] :text text))
   ([title text [msg link] [pno tno dno]]
    ;; here link is obtained by the mdl-widgetry.cards/link function
    (card! (misc/cells-cols pno tno dno)
-          :title title :text text
+          :title [{:title title}] :text text
           :actions [msg link])))
 

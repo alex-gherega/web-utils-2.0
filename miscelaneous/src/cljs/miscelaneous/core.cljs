@@ -92,3 +92,19 @@
   (if-let [spaces (map (fn [_] " ") opts)]
     (interleave spaces
                 opts)))
+
+(defn- is-int? [field-name]
+  (let [field-value (.. (get-js-el (name field-name)) -value)]
+    (= (str (js/parseInt field-value)) field-value)))
+
+(defn- reset-field [default-val field-name]
+  (set! (.. (get-js-el (name field-name)) -value) default-val))
+
+(defn- do-with-check [pred-call fn-call fail-call field-name]
+  (if (pred-call field-name)
+    (fn-call field-name)
+    (fail-call field-name)))
+
+(defn- do-with-param [param-name fn-call]
+  (let [param-value (.. (get-js-el (name param-name)) -value)]
+    (fn-call param-name param-value)))

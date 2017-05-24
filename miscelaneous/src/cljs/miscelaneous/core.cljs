@@ -108,3 +108,6 @@
 (defn- do-with-param [param-name fn-call]
   (let [param-value (.. (get-js-el (name param-name)) -value)]
     (fn-call param-name param-value)))
+
+(defn check-int [val]
+  (int? val))

@@ -1,4 +1,4 @@
-(defproject mdl-widgetry "0.1.9-alpha"
+(defproject mdl-widgetry "0.2.0-alpha"
   :description "A ClojureScript lib for useful MDL widgets and utilities"
   :url "http://example.com/FIXME"
   :license {:name "Eclipse Public License - v 1.0"

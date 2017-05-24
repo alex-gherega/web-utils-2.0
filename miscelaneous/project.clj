@@ -1,4 +1,4 @@
-(defproject web-utils-2.0/miscelaneous "0.0.2-alpha"
+(defproject web-utils-2.0/miscelaneous "0.0.3-alpha"
   :description "A ClojureScript lib for useful miscelaneous utilities"
   :url "http://example.com/FIXME"
   :license {:name "Eclipse Public License - v 1.0"

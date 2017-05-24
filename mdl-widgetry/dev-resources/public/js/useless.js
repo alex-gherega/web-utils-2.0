@@ -24,3 +24,4 @@ goog.addDependency("../cljs/spec.js", ['cljs.spec'], ['cljs.core', 'goog.object'
 goog.addDependency("../cljs/repl.js", ['cljs.repl'], ['cljs.core', 'cljs.spec']);
 goog.addDependency("../clojure/browser/repl.js", ['clojure.browser.repl'], ['goog.dom', 'goog.userAgent.product', 'cljs.core', 'goog.object', 'clojure.browser.net', 'cljs.repl', 'goog.array', 'clojure.browser.event']);
 goog.addDependency("../mdl_widgetry/cards.js", ['mdl_widgetry.cards'], ['miscelaneous.core', 'cljsjs.material', 'reagent.core', 'clojure.browser.repl', 'cljs.core', 'clojure.string']);
+goog.addDependency("../mdl_widgetry/dialog.js", ['mdl_widgetry.dialog'], ['miscelaneous.core', 'cljsjs.material', 'cljs.core']);

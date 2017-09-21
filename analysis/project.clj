@@ -1,4 +1,4 @@
-(defproject analysis "web-utils-2.0/0.1.0-alpha"
+(defproject web-utils-2.0/analysis "0.1.0-alpha"
   :description "Tools for various analysis"
   :url "https://github.com/alex-gherega/web-utils-2.0/tree/master/analysis"
   :license {:name "Eclipse Public License"

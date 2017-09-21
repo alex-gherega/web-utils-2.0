@@ -4,12 +4,14 @@ This is an utility belt design for extracting various information during an anal
 
 ## Instalation
 With leiningen/boot:
-#+BEGIN_SRC clojure
+
+```clojure
 [clj-http "3.7.0"]
-#+END_SRC
+```
 
 ## Modules
 1. Web Page Test
+
 2..n. TBD
 
 ## Web Page Test
@@ -19,9 +21,10 @@ Once you've run your test on this site you'll have a specific URL for your test.
 Plug that into this module API and extract useful info.
 
 ### What you get
-For now we support only:
-#+BEGIN_SRC clojure
 
+For now we support only:
+
+```clojure
 (def ^:dynamic objective-values {:load-time "LoadTime"
                                  :first-byte "TTFB"
                                  :start-render "StartRender"
@@ -31,15 +34,15 @@ For now we support only:
                                  :doc-complete "DocComplete"
                                  :fully-loaded "FullyLoaded"
                                  :bytes-in "BytesIn"})'''
-#+END_SRC
+```
 
 But since this is dynamic you can extend it to your liking.
 
 ### Usage
 
-#+BEGIN_SRC clojure
+```clojure
 (analysis.web-page-test/extract-value "https://www.webpagetest.org/result/**your-hash-number**/" 1 :bytes-in)
-#+END_SRC
+```
 
 In this example you're passing the URL from your test, the second argument represents the run of your test (at the momemnt you can have 1 2 or 3), and :bytes-in is a key from the objective-values map.
 

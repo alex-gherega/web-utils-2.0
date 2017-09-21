@@ -6,7 +6,7 @@ This is an utility belt design for extracting various information during an anal
 With leiningen/boot:
 
 ```clojure
-[clj-http "3.7.0"]
+[web-utils-2.0/analysis "0.1.0-alpha"]
 ```
 
 ## Modules

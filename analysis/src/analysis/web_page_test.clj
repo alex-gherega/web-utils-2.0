@@ -3,15 +3,15 @@
             [hickory.core :refer [parse as-hiccup]]
             [clj-http.client :refer [get]]))
 
-(def objective-values {:load-time "LoadTime"
-                       :first-byte "TTFB"
-                       :start-render "StartRender"
-                       :visual-complete "VisualComplete"
-                       :speed-index "SpeedIndex"
-                       :fst-interactive "FirstInteractive"
-                       :doc-complete "DocComplete"
-                       :fully-loaded "FullyLoaded"
-                       :bytes-in "BytesIn"})
+(def ^:dynamic objective-values {:load-time "LoadTime"
+                                 :first-byte "TTFB"
+                                 :start-render "StartRender"
+                                 :visual-complete "VisualComplete"
+                                 :speed-index "SpeedIndex"
+                                 :fst-interactive "FirstInteractive"
+                                 :doc-complete "DocComplete"
+                                 :fully-loaded "FullyLoaded"
+                                 :bytes-in "BytesIn"})
 
 ;; e.g. url: https://www.webpagetest.org/result/170920_EE_90884ce83af9264e0604cdcf28b625d9/
 (defn wget-details [url run]

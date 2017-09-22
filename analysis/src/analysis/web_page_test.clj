@@ -20,6 +20,12 @@
 (defn- lookup-pattern [objective]
   (html [:td {:id (objective-values objective)} "*.*"]))
 
+(defn sanitize [string-value]
+  {:value (->> (clojure.string/replace string-value "," ".")
+               (re-find #"\d\.??\d+")
+               (read-string))
+   :unit (re-find #"[a-zA-Z]+" string-value)})
+
 (defn extract-pattern
 
   ([url run objective]

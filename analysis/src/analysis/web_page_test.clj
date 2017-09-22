@@ -24,6 +24,11 @@
 
 ;; utilities .....................
 ;; e.g. url: https://www.webpagetest.org/result/170920_EE_90884ce83af9264e0604cdcf28b625d9/
+
+;;TODO: move this to some external lib
+(defn- third [coll]
+  (nth coll 2))
+
 (defn wget-details [url run]
   (get (str url run "/details/")))
 
@@ -89,3 +94,49 @@
         browser (-> location second extract-browser)
         [value unit] ((juxt :value :unit) (sanitize (second (extract-value url run objective))))]
     {::env location ::browser browser ::objective objective ::values value ::unit unit}))
+
+
+(def extract-value! (memoize extract-value))
+(def sanitize! (memoize sanitize))
+
+(defn agg-basic-result [urls run objective]
+  (loop [URLs urls
+         locations (transient [])
+         browser (transient [])
+         values (transient [])
+         units (transient [])]
+    (if (-> URLs seq not)
+      {::env (persistent! locations)
+       ::browser (persistent! browser)
+       ::values (persistent! values)
+       ::unit (persistent! units)
+       ::objective objective}
+      (recur (rest URLs)
+             (conj! locations (extract-value! (first URLs) run "From:" lookup-location-pattern))
+             (conj! browser (-> (extract-value! (first URLs) run "From:" lookup-location-pattern)
+                                second extract-browser))
+             (conj! values (-> (extract-value! (first URLs) run objective) second sanitize :value))
+             (conj! units (-> (extract-value! (first URLs) run objective) second sanitize :unit))))))
+
+(defn- extract-sanitize-val [url run objective]
+  (-> (extract-value! url run objective) second sanitize :value))
+
+(defn agg-mean-result [urls runs objective]
+  (loop [URLs urls
+         run (first runs)
+         locations (transient [])
+         browser (transient [])
+         values (transient [])
+         units (transient [])]
+    (if (-> URLs seq not)
+      {::env (persistent! locations)
+       ::browser (persistent! browser)
+       ::values (persistent! values)
+       ::unit (persistent! units)
+       ::objective objective}
+      (recur (rest URLs) run
+             (conj! locations (extract-value! (first URLs) run "From:" lookup-location-pattern))
+             (conj! browser (-> (extract-value! (first URLs) run "From:" lookup-location-pattern)
+                                second extract-browser))
+             (conj! values (/ (apply + (map #(extract-sanitize-val (first URLs) % objective) runs)) (count runs)))
+             (conj! units (-> (extract-value! (first URLs) run objective) second sanitize :unit))))))

@@ -13,31 +13,54 @@
                                  :fully-loaded "FullyLoaded"
                                  :bytes-in "BytesIn"})
 
+;; utilities .....................
 ;; e.g. url: https://www.webpagetest.org/result/170920_EE_90884ce83af9264e0604cdcf28b625d9/
 (defn wget-details [url run]
   (get (str url run "/details/")))
 
-(defn- lookup-pattern [objective]
+(defn lookup-objective-pattern [objective]
   (html [:td {:id (objective-values objective)} "*.*"]))
 
+(defn lookup-location-pattern
+  ([] (lookup-location-pattern "From:"))
+  ([attr-value]
+   (str (html [:strong attr-value]) "*.*")))
+
+
+(defn extract-location [re-find-seq]
+  (->> re-find-seq
+      parse
+      as-hiccup
+      flatten
+      (filter string?)
+      (apply str)))
+
+;; extractors .....................
 (defn extract-pattern
-
-  ([url run objective]
+  ([url run objective lookup-fn]
    (extract-pattern ((wget-details url run) :body)
-                    objective))
-
-  ([page-body objective]
+                    objective
+                    lookup-fn))
+  
+  ([page-body objective lookup-fn]
+   (prn (lookup-fn objective))
    (-> objective
-       lookup-pattern
+       lookup-fn
        re-pattern
        (re-find page-body))))
 
 (defn extract-value
+  ([url run objective lookup-fn]
+   (extract-value (extract-pattern url run objective lookup-fn) objective))
+  
   ([url run objective]
-   (extract-value (extract-pattern url run objective) objective))
+   (extract-value (extract-pattern url run objective lookup-location-pattern) objective))
 
   ([str-pattern objective]
    [objective (or (re-find #"\d,\d+\s*.*B" str-pattern)
-                  (re-find #"\d\.*\d+\s*\w*" str-pattern))]))
+                  (re-find #"\d\.*\d+\s*\w*" str-pattern)
+                  (extract-location str-pattern))]))
 
 ;; e.g. usage: (analysis.web-page-test/extract-value "https://www.webpagetest.org/result/170920_EE_90884ce83af9264e0604cdcf28b625d9/" 1 :bytes-in)
+
+;; aggregators .....................

@@ -2,7 +2,8 @@
   (:require [hiccup.core :refer [html]]
             [hickory.core :refer [parse as-hiccup]]
             [clj-http.client :refer [get]]
-            [clojure.spec.alpha :as s]))
+            [clojure.spec.alpha :as s]
+            [analysis.csv :as csv]))
 
 ;; structures .....................
 (def ^:dynamic objective-values {:load-time "LoadTime"
@@ -49,13 +50,14 @@
 
 
 (defn extract-location [re-find-seq]
-  (->> re-find-seq
-       parse
-       as-hiccup
-       flatten
-       (filter string?)
-       rest
-       (apply str)))
+  (clojure.string/replace (->> re-find-seq
+                               parse
+                               as-hiccup
+                               flatten
+                               (filter string?)
+                               rest
+                               (apply str))
+                          "," " "))
 
 (defn extract-browser [environment-str]
   (second (clojure.string/split environment-str #"-")))
@@ -69,11 +71,12 @@
 ;; extractors .....................
 (defn extract-pattern
   ([url run objective lookup-fn]
+   ;(prn url)
    (extract-pattern ((wget-details url run) :body)
                     objective
                     lookup-fn))
   
-  ([page-body objective lookup-fn]
+  ([page-body objective lookup-fn]        
    (-> objective
        lookup-fn
        re-pattern
@@ -88,9 +91,11 @@
 
   ([str-pattern objective]
    ;;(prn str-pattern)
+   ;; TODO: solve this "if" hack - is nonsense
    [objective (if (keyword? objective)
-                (or (re-find #"\d+,\d+\s*.*B" str-pattern)
-                    (re-find #"\d+\.??\d+\s*\w*" str-pattern))
+                (do ;(prn str-pattern)
+                    (or (re-find #"\d+,\d+\s*.*B" str-pattern)
+                        (re-find #"\d+\.??\d+\s*\w*" str-pattern)))
                 (extract-location str-pattern))]))
 
 ;; e.g. usage: (analysis.web-page-test/extract-value "https://www.webpagetest.org/result/170920_EE_90884ce83af9264e0604cdcf28b625d9/" 1 :bytes-in)
@@ -126,7 +131,8 @@
              (conj! values (-> (extract-value! (first URLs) run objective) second sanitize :value))
              (conj! units (-> (extract-value! (first URLs) run objective) second sanitize :unit))))))
 
-(defn- extract-sanitize-val [url run objective]
+(defn extract-sanitize-val [url run objective]
+  ;;(prn (extract-value! url run objective))
   (-> (extract-value! url run objective) second sanitize :value))
 
 (defn agg-mean-result [urls runs objective]
@@ -151,5 +157,14 @@
              (conj! units (-> (extract-value! (first URLs) run objective) second sanitize :unit))))))
 
 ;; application .....................
-(defn app [urls-file objective]
+(defn single-objective-app [urls-file objective]
   (agg-mean-result (read-links urls-file) runs objective))
+
+(defn multi-objective-app [urls-file]
+  (map #(vector % (single-objective-app urls-file %)) (keys (dissoc objective-values :fst-interactive))))
+
+(defn multi-write-app [urls-file]
+  (let [file-root-name (first (clojure.string/split urls-file #"\."))]
+    (prn file-root-name)
+    (map #(csv/write-csv (second %) (str file-root-name "-" (-> % first name) ".csv"))
+         (multi-objective-app urls-file))))

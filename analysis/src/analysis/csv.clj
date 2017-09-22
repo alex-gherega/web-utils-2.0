@@ -2,11 +2,11 @@
   (:require [clojure.java.io :refer [reader writer]]))
 
 (defn- parse-entry [entry]
-  (reduce str "" (map #(str %1 "," %2 "," %3 "," %4 "," (::objective entry) "\n")
-                      (::env entry)
-                      (::browser entry)
-                      (::values entry)
-                      (::unit entry))))
+  (reduce str "" (map #(str %1 "," %2 "," %3 "," %4 "," (:analysis.web-page-test/objective entry) "\n")
+                      (:analysis.web-page-test/env entry)
+                      (:analysis.web-page-test/browser entry)
+                      (:analysis.web-page-test/values entry)
+                      (:analysis.web-page-test/unit entry))))
 
 (defn- write-data [file-writer data]
   (.write file-writer (str (reduce str "" (map #(str % ",") (-> data first keys))) "\n"))

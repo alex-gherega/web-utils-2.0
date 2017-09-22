@@ -22,6 +22,7 @@
 (s/def ::values (s/and vector? (s/coll-of number?)))
 (s/def ::objective (-> objective-values keys set))
 (s/def ::browser (s/or :name string? :type #{"Firefox" "Chrome" "IE11"}))
+
 (s/def ::agg-result (s/keys :req [::env ::browser ::objective ::values ::unit]))
 
 ;; utilities .....................

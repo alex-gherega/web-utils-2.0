@@ -15,6 +15,8 @@
                                  :fully-loaded "FullyLoaded"
                                  :bytes-in "BytesIn"})
 
+(def ^:dynamic runs [1 2 3])
+
 (s/def ::env (s/and vector?  (s/coll-of (s/tuple string? string?))))
 (s/def ::unit string?)
 (s/def ::values (s/and vector? (s/coll-of number?)))
@@ -28,6 +30,10 @@
 ;;TODO: move this to some external lib
 (defn- third [coll]
   (nth coll 2))
+
+(defn read-links [file]
+  (with-open [rdr (clojure.java.io/reader file)]
+    (-> rdr line-seq vec)))
 
 (defn wget-details [url run]
   (get (str url run "/details/")))
@@ -80,7 +86,7 @@
    (extract-value (extract-pattern url run objective lookup-objective-pattern) objective))
 
   ([str-pattern objective]
-   (prn str-pattern)
+   ;;(prn str-pattern)
    [objective (or (re-find #"\d+,\d+\s*.*B" str-pattern)
                   (re-find #"\d+\.??\d+\s*\w*" str-pattern)
                   (extract-location str-pattern))]))
@@ -128,6 +134,7 @@
          browser (transient [])
          values (transient [])
          units (transient [])]
+    (if (-> URLs seq) (prn (extract-value! (first URLs) run "From:" lookup-location-pattern)))
     (if (-> URLs seq not)
       {::env (persistent! locations)
        ::browser (persistent! browser)
@@ -140,3 +147,7 @@
                                 second extract-browser))
              (conj! values (/ (apply + (map #(extract-sanitize-val (first URLs) % objective) runs)) (count runs)))
              (conj! units (-> (extract-value! (first URLs) run objective) second sanitize :unit))))))
+
+;; application .....................
+(defn app [urls-file objective]
+  (agg-mean-result (read-links urls-file) runs objective))

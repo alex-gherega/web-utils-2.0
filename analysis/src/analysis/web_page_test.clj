@@ -29,11 +29,17 @@
 
 (defn extract-location [re-find-seq]
   (->> re-find-seq
-      parse
-      as-hiccup
-      flatten
-      (filter string?)
-      (apply str)))
+       parse
+       as-hiccup
+       flatten
+       (filter string?)
+       (apply str)))
+
+(defn sanitize [string-value]
+  {:value (->> (clojure.string/replace string-value "," ".")
+               (re-find #"\d\.??\d+")
+               (read-string))
+   :unit (re-find #"[a-zA-Z]+" string-value)})
 
 ;; extractors .....................
 (defn extract-pattern
@@ -58,9 +64,7 @@
 
   ([str-pattern objective]
    [objective (or (re-find #"\d,\d+\s*.*B" str-pattern)
-                  (re-find #"\d\.*\d+\s*\w*" str-pattern)
+                  (re-find #"\d\.??\d+\s*\w*" str-pattern)
                   (extract-location str-pattern))]))
 
 ;; e.g. usage: (analysis.web-page-test/extract-value "https://www.webpagetest.org/result/170920_EE_90884ce83af9264e0604cdcf28b625d9/" 1 :bytes-in)
-
-;; aggregators .....................

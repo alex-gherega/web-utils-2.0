@@ -38,6 +38,6 @@
 
   ([str-pattern objective]
    [objective (or (re-find #"\d,\d+\s*.*B" str-pattern)
-                  (re-find #"\d\.*\d+\s*\w*" str-pattern))]))
+                  (re-find #"\d\.??\d+\s*\w*" str-pattern))]))
 
 ;; e.g. usage: (analysis.web-page-test/extract-value "https://www.webpagetest.org/result/170920_EE_90884ce83af9264e0604cdcf28b625d9/" 1 :bytes-in)

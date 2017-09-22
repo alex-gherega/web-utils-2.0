@@ -142,7 +142,7 @@
        ::unit (persistent! units)
        ::objective objective}
       (recur (rest URLs) run
-             (conj! locations (extract-value! (first URLs) run "From:" lookup-location-pattern))
+             (conj! locations (second (extract-value! (first URLs) run "From:" lookup-location-pattern)))
              (conj! browser (-> (extract-value! (first URLs) run "From:" lookup-location-pattern)
                                 second extract-browser))
              (conj! values (/ (apply + (map #(extract-sanitize-val (first URLs) % objective) runs)) (count runs)))

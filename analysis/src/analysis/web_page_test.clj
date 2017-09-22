@@ -20,7 +20,7 @@
 (s/def ::values (s/and vector? (s/coll-of number?)))
 (s/def ::objective (-> objective-values keys set))
 (s/def ::browser (s/or :name string? :type #{"Firefox" "Chrome" "IE11"}))
-(s/def ::aggregate-result (s/keys :req [::env ::browser ::objective ::values ::unit]))
+(s/def ::agg-result (s/keys :req [::env ::browser ::objective ::values ::unit]))
 
 ;; utilities .....................
 ;; e.g. url: https://www.webpagetest.org/result/170920_EE_90884ce83af9264e0604cdcf28b625d9/
@@ -50,7 +50,7 @@
 
 (defn sanitize [string-value]
   {:value (->> (clojure.string/replace string-value "," ".")
-               (re-find #"\d\.??\d+")
+               (re-find #"\d+\.??\d+")
                (read-string))
    :unit (re-find #"[a-zA-Z]+" string-value)})
 
@@ -76,8 +76,8 @@
 
   ([str-pattern objective]
    (prn str-pattern)
-   [objective (or (re-find #"\d,\d+\s*.*B" str-pattern)
-                  (re-find #"\d\.??\d+\s*\w*" str-pattern)
+   [objective (or (re-find #"\d+,\d+\s*.*B" str-pattern)
+                  (re-find #"\d+\.??\d+\s*\w*" str-pattern)
                   (extract-location str-pattern))]))
 
 ;; e.g. usage: (analysis.web-page-test/extract-value "https://www.webpagetest.org/result/170920_EE_90884ce83af9264e0604cdcf28b625d9/" 1 :bytes-in)
@@ -87,4 +87,5 @@
 (defn agg-basic-result [url run objective]
   (let [location (extract-value url run "From:" lookup-location-pattern)
         browser (-> location second extract-browser)
-        ]))
+        [value unit] ((juxt :value :unit) (sanitize (second (extract-value url run objective))))]
+    {::env location ::browser browser ::objective objective ::values value ::unit unit}))
